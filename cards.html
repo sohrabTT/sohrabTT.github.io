@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AY - AI Yard: A collection of the best online AI tools.">
+    <meta name="keywords" content="AI, Artificial Intelligence, online tools, Chatbot, Sentiment Analysis, online translation">
+    <meta name="author" content="AY - AI Yard">
+    <title>AI Yard - Booths</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', sans-serif;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: #222;
+        }
+
+        /* ویدیو به عنوان بک‌گراند */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        /* افکت شیشه‌ای برای محتوا */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header style */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .header ul {
+            list-style: none;
+            display: flex;
+            gap: 60px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .header ul li {
+            display: inline;
+        }
+
+        .header ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .header ul li a:hover {
+            color: #ddd;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 4rem;
+            margin-top: 100px; /* Adjusted for header */
+            color: #007bff; /* Title color */
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            z-index: 101;
+        }
+
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .header ul {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            .header ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ویدیو به عنوان بک‌گراند -->
+    <video class="video-background" autoplay muted loop>
+        <source src="Video/Protein chain - video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="back-button">Back</a>
+
+    <!-- Header -->
+    <div class="header">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Booths</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Title -->
+    <h1>Booths</h1>
+    
+    <!-- Cards Section -->
+    <div class="card-container">
+        <!-- Booth 1 -->
+        <div class="card">
+            <h3>ChatGPT</h3>
+            <p>AI-powered chatbot for natural language conversations.</p>
+            <a href="https://chat.openai.com" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 2 -->
+        <div class="card">
+            <h3>DALL·E</h3>
+            <p>Generate images from text descriptions using AI.</p>
+            <a href="https://openai.com/dall-e" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 3 -->
+        <div class="card">
+            <h3>DeepMind</h3>
+            <p>Advanced AI research and applications.</p>
+            <a href="https://deepmind.com" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 4 -->
+        <div class="card">
+            <h3>IBM Watson</h3>
+            <p>AI for business solutions and analytics.</p>
+            <a href="https://www.ibm.com/watson" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 5 -->
+        <div class="card">
+            <h3>Google AI</h3>
+            <p>Explore Google's AI tools and research.</p>
+            <a href="https://ai.google" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 6 -->
+        <div class="card">
+            <h3>Microsoft Azure AI</h3>
+            <p>AI services and machine learning tools.</p>
+            <a href="https://azure.microsoft.com/en-us/services/cognitive-services" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 7 -->
+        <div class="card">
+            <h3>Hugging Face</h3>
+            <p>Open-source AI models and datasets.</p>
+            <a href="https://huggingface.co" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 8 -->
+        <div class="card">
+            <h3>TensorFlow</h3>
+            <p>Open-source machine learning framework.</p>
+            <a href="https://www.tensorflow.org" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 9 -->
+        <div class="card">
+            <h3>OpenAI Gym</h3>
+            <p>Toolkit for developing reinforcement learning algorithms.</p>
+            <a href="https://gym.openai.com" target="_blank">Explore</a>
+        </div>
+
+        <!-- Booth 10 -->
+        <div class="card">
+            <h3>Stable Diffusion</h3>
+            <p>Generate high-quality images from text prompts.</p>
+            <a href="https://stability.ai" target="_blank">Explore</a>
+        </div>
+    </div>
+
+</body>
+</html>
