@@ -6,12 +6,15 @@
     <title>AY - AI Yard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* استایل‌های کلی */
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: white;
             overflow-x: hidden;
         }
+
+        /* هدر و منوی همبرگری */
         .header {
             position: fixed;
             top: 0;
@@ -33,6 +36,9 @@
             padding: 0;
             margin: 0;
         }
+        .header ul li {
+            display: inline;
+        }
         .header ul li a {
             text-decoration: none;
             color: #fff;
@@ -42,6 +48,63 @@
         .header ul li a:hover {
             color: #ddd;
         }
+
+        /* هدر موبایل */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            font-size: 14px;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-header ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+            justify-content: center; /* مرکز‌چین کردن گزینه‌ها */
+            width: 100%;
+        }
+        .mobile-header ul li {
+            display: inline;
+        }
+        .mobile-header ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+        .mobile-header ul li a:hover {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            /* حذف هدر دسکتاپ و نمایش هدر موبایل */
+            .header {
+                display: none;
+            }
+            .mobile-header {
+                display: flex;
+            }
+
+            /* ویدیو تمام‌صفحه برای موبایل */
+            .video-section {
+                height: 100vh;
+            }
+            .video-section video {
+                z-index: -1;
+            }
+        }
+
+        /* بقیه استایل‌ها */
         .video-section {
             position: relative;
             height: 50vh;
@@ -61,12 +124,27 @@
             object-fit: cover;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            opacity: 1;
+            opacity: 1; /* حالت اولیه ویدیو */
         }
+        .content-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            color: #fff;
+        }
+        .content-overlay h1 {
+            font-size: 4rem;
+            font-weight: 800;
+        }
+
+        /* کارت بزرگ زیر ویدیو */
         .main-card {
             position: relative;
             margin-top: -100px;
-            background: #0a0a2e;
+            background: #0f0052; /* پس‌زمینه آبی تیره */
             padding: 40px;
             width: 80%;
             max-width: 800px;
@@ -80,63 +158,216 @@
         .main-card h2 {
             font-size: 2.5rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #8e44ad, #3498db, #8e44ad);
-            background-size: 200% auto;
+            background: linear-gradient(90deg, #8A2BE2, #DA70D6); /* گرادینت بنفش */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient-scroll 10s linear infinite;
+            background-size: 200% auto;
+            animation: gradient 5s linear infinite;
         }
-        @keyframes gradient-scroll {
+        @keyframes gradient {
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
-    .get-started-btn {
-            display: inline-block;
+        .main-card p {
+            font-size: 1.2rem;
+            color: #fff; /* متن سفید برای خوانایی */
             margin-top: 20px;
-            padding: 10px 20px;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 25px;
-            transition: background 0.3s;
         }
-        .get-started-btn:hover {
-            background: #2980b9;
-        }
-    .footer {
+
+        /* بخش محتوای بدون باکس */
+        .content-section {
+            background: #0f0052; /* پس‌زمینه آبی تیره */
+            color: #fff; /* نوشته‌های سفید */
+            padding: 60px 20px;
             text-align: center;
-            padding: 20px;
-            background: #0a0a2e;
-            color: #fff;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            margin-top: 50px;
         }
-$1
+        .content-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .content-section p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        .content-section button {
+            background-color: #fff;
+            color: #0077be;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .content-section button:hover {
+            background-color: #00a8e8;
+            color: #fff;
+        }
+
+        /* بخش مطالب بدون باکس */
+        .articles-section {
+            padding: 40px 20px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        .articles-section h2 {
+            font-size: 2rem;
+            color: #333;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .article {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            text-align: left;
+        }
+        .article h3 {
+            font-size: 1.5rem;
+            color: #0077be;
+            margin-bottom: 10px;
+        }
+        .article p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* فوتر */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        footer a {
+            color: #0077be;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+    <!-- هدر دسکتاپ -->
     <header class="header">
-        <ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul id="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">Support</a></li>
             <li><a href="cards.html">Yard</a></li>
+            <li><a href="chat.html">Global Chat</a></li>
         </ul>
     </header>
+
+    <!-- هدر موبایل -->
+    <div class="mobile-header">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="cards.html">Yard</a></li>
+            <li><a href="chat.html">Global Chat</a></li>
+        </ul>
+    </div>
+    
+    <!-- بخش ویدیو -->
     <section class="video-section">
         <video autoplay muted loop>
-            <source src="Protein chain - video.mp4" type="video/mp4">
+            <source src="Video/Protein chain - video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <div class="content-overlay">
+            <h1>AY</h1>
+        </div>
     </section>
-    <div class="main-card" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; background: #0a0a2e; color: #1a1a3d; box-shadow: none;">
-        <h2 style="color: #0b0b3b;">Welcome to the Yard</h2>
+
+    <!-- کارت بزرگ زیر ویدیو -->
+    <div class="main-card">
+        <h2>Welcome to the Yard</h2>
         <p>Discover the latest AI technologies and explore innovative solutions.</p>
-        <a href="#" class="get-started-btn">Get Started</a>
-    </div><footer class="footer">
-        <p>&copy; 2025 AY - AI Yard. All rights reserved.</p>
-    </footer>$1
+    </div>
+
+    <!-- بخش محتوای بدون باکس -->
+    <div class="content-section">
+        <h2>Enter the Yard</h2>
+        <p>Connect, explore, and search with the power of AI.</p>
+        <button onclick="window.location.href='login.html'">Start</button>
+    </div>
+
+    <!-- بخش مطالب بدون باکس -->
+    <div class="articles-section">
+        <h2>Latest Articles</h2>
+        <div class="article">
+            <h3>1. AI in Healthcare</h3>
+            <p>How AI is transforming the healthcare industry with innovative solutions.</p>
+        </div>
+        <div class="article">
+            <h3>2. AI in Education</h3>
+            <p>Discover how AI is enhancing learning experiences and educational tools.</p>
+        </div>
+        <div class="article">
+            <h3>3. AI in Finance</h3>
+            <p>Explore AI applications in the financial sector for better decision-making.</p>
+        </div>
+        <div class="article">
+            <h3>4. AI in Music</h3>
+            <p>How AI is revolutionizing music composition and production.</p>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer>
+        <p>&copy; 2023 AY - AI Yard. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // توگل منوی همبرگری
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // انیمیشن محو شدن ویدیو بر اساس اسکرول
+        window.addEventListener('scroll', function() {
+            const videoSection = document.querySelector('.video-section');
+            const video = videoSection.querySelector('video');
+            const videoHeight = videoSection.offsetHeight;
+            const scrollPosition = window.scrollY;
+
+            // محاسبه opacity بر اساس موقعیت اسکرول
+            const opacity = 1 - (scrollPosition / videoHeight);
+            video.style.opacity = opacity > 0 ? opacity : 0;
+        });
+
+        // تغییر گرادینت متن بر اساس اسکرول
+        window.addEventListener('scroll', function() {
+            const mainCard = document.querySelector('.main-card h2');
+            const scrollPosition = window.scrollY;
+            const gradientPosition = (scrollPosition % 100) / 100; // تغییر گرادینت بر اساس اسکرول
+
+            mainCard.style.background = `linear-gradient(90deg, #8A2BE2 ${gradientPosition * 100}%, #DA70D6 ${(gradientPosition + 0.5) * 100}%)`;
+            mainCard.style.backgroundClip = 'text';
+            mainCard.style.webkitBackgroundClip = 'text';
+            mainCard.style.webkitTextFillColor = 'transparent';
+        });
+    </script>
+</body>
 </html>
