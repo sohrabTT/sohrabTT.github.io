@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Chat - AY AI Yard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            margin: 0;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .chat-box p {
+            margin: 5px 0;
+        }
+        .chat-box .username {
+            font-weight: bold;
+        }
+        .input-group {
+            display: flex;
+        }
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+        .input-group button {
+            padding: 10px;
+            border: none;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+        .input-group button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- پیام‌ها اینجا نمایش داده میشن -->
+        </div>
+        <div class="input-group">
+            <input type="text" id="message" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // اتصال به Appwrite
+        const appwrite = new Appwrite.Client()
+            .setEndpoint('https://cloud.appwrite.io/v1') // آدرس API
+            .setProject('67c012890029235ff1f3'); // شناسه پروژه
+
+        const database = new Appwrite.Databases(appwrite);
+        const collectionId = '67c01323001030f8b80d'; // شناسه دقیق Collection که ساختی
+
+        let username = prompt("Enter your username:");
+
+        function loadMessages() {
+            database.listDocuments('67c012a1002a2caa6c05', collectionId)
+                .then(response => {
+                    const chatBox = document.getElementById('chat-box');
+                    chatBox.innerHTML = '';
+                    response.documents.forEach(doc => {
+                        chatBox.innerHTML += `<p><span class="username">${doc.username}:</span> ${doc.message}</p>`;
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(error => console.error(error));
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            if(message.trim() === '') return;
+
+            database.createDocument('67c012a1002a2caa6c05', collectionId, 'unique()', {
+                username: username,
+                message: message,
+                timestamp: Date.now()
+            }).then(() => {
+                document.getElementById('message').value = '';
+                loadMessages();
+            }).catch(error => console.error(error));
+        }
+
+        setInterval(loadMessages, 3000); // رفرش هر ۳ ثانیه
+    </script>
+</body>
+</html>
